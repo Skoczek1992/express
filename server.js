@@ -7,8 +7,8 @@ const app = express();
 app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
 
-
 app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/user', (req, res, next) => {
   res.send('Please log in');
@@ -48,6 +48,19 @@ app.get('/contact', (req, res) => {
 
 app.get('/hello/:name', (req, res) => {
   res.render('hello', { name: req.params.name });
+});
+
+// post
+
+app.post('/contact/send-message', (req, res) => {
+  const { author, sender, title, message, image } = req.body;
+
+  if(author && sender && title && message && image) {
+    res.send('The message has been sent!');
+  }
+  else {
+    res.send('You can\'t leave fields empty!')
+  }
 });
 
 
