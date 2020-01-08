@@ -63,11 +63,10 @@ app.post('/contact/send-message', (req, res) => {
   }
 });
 
-
-
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname + `/views/404.html`));
+  res.render('404');
 });
+
 
 app.listen(8000, () => {
   console.log('Server is running on port 8000');
